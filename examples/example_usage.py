@@ -21,10 +21,15 @@ BASE_URL = "http://localhost:5000"
 def check_health():
     """Check if the service is healthy."""
     print("\n=== Health Check ===")
-    response = requests.get(f"{BASE_URL}/health")
-    print(f"Status Code: {response.status_code}")
-    print(f"Response: {json.dumps(response.json(), indent=2)}")
-    return response.status_code == 200
+    try:
+        response = requests.get(f"{BASE_URL}/health")
+        print(f"Status Code: {response.status_code}")
+        if response.status_code == 200:
+            print(f"Response: {json.dumps(response.json(), indent=2)}")
+        return response.status_code == 200
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
+        return False
 
 
 def get_status():
