@@ -52,12 +52,15 @@ def generate_text():
         if result['success']:
             return jsonify(result), 200
         else:
-            return jsonify(result), 500
+            return jsonify({
+                'success': False,
+                'error': 'Failed to generate text'
+            }), 500
             
-    except Exception as e:
+    except Exception:
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'An internal error occurred'
         }), 500
 
 
@@ -109,12 +112,15 @@ def chat():
         if result['success']:
             return jsonify(result), 200
         else:
-            return jsonify(result), 500
+            return jsonify({
+                'success': False,
+                'error': 'Failed to process chat request'
+            }), 500
             
-    except Exception as e:
+    except Exception:
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'An internal error occurred'
         }), 500
 
 
@@ -160,10 +166,13 @@ def analyze_text():
         if result['success']:
             return jsonify(result), 200
         else:
-            return jsonify(result), 500
+            return jsonify({
+                'success': False,
+                'error': 'Failed to analyze text'
+            }), 500
             
-    except Exception as e:
+    except Exception:
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'An internal error occurred'
         }), 500
